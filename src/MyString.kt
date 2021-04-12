@@ -89,7 +89,7 @@ class MyString : CharSequence {
         return false
     }
 
-    fun trimm(start: Int, end: Int): MyString {
+    fun trim(start: Int, end: Int): MyString {
         return subSequence(start, end)
     }
 
@@ -110,6 +110,9 @@ class MyString : CharSequence {
          * @return a string representing an integer
          */
         fun intToMyString(number: Int): MyString {
+            if (number == 0){
+                return MyString("0")
+            }
             var positiveNumber = kotlin.math.abs(number)
             val size = (kotlin.math.log10(positiveNumber.toDouble()) + 1).toInt()
             val value: CharArray
