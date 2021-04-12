@@ -39,6 +39,7 @@ class MyString : CharSequence {
      * Adds a sequence of characters to the end of the current string
      *
      * @param addString the sequence of characters to be added
+     * @return new sequence of characters
      */
     fun concat(addString: CharSequence): CharSequence {
         val newSize = size + addString.length
@@ -50,6 +51,12 @@ class MyString : CharSequence {
         return MyString(result)
     }
 
+    /**
+     * Adds a string to the end of the current string
+     *
+     * @param addString the string to be added
+     * @return new string
+     */
     fun concat(addString: MyString): MyString {
         val newSize = size + addString.length
         val result = CharArray(newSize)
@@ -60,6 +67,12 @@ class MyString : CharSequence {
         return MyString(result)
     }
 
+    /**
+     * Searches for a sequence of characters in the current string
+     *
+     * @param findString the desired sequence of characters
+     * @return true if the current string contains the desired sequence of characters
+     */
     operator fun contains(findString: CharSequence): Boolean {
         for (i in 0 until size) {
             if (value[i] == findString[0]) {
@@ -76,38 +89,26 @@ class MyString : CharSequence {
         return false
     }
 
-    fun trimm(start: Int, end: Int): CharSequence {
+    fun trimm(start: Int, end: Int): MyString {
         return subSequence(start, end)
     }
 
+    /**
+     * Converts the current sting to a real number
+     *
+     * @return real number in the format float
+     */
     fun toFloat(): Float {
         return toString().toFloat()
     }
 
-    override val length: Int
-        get() = size
-
-    override fun get(index: Int): Char {
-        return value[index]
-    }
-
-    override fun subSequence(start: Int, end: Int): CharSequence {
-        val result = CharArray(end - start)
-        for ((index, i) in (start until end).withIndex()) {
-            result[index] = value[i]
-        }
-        return MyString(result)
-    }
-
-    override fun toString(): String {
-        val result = StringBuilder()
-        for (i in 0 until size) {
-            result.append(value[i])
-        }
-        return result.toString()
-    }
-
     companion object {
+        /**
+         * Convert integer to string
+         *
+         * @param number integer number
+         * @return a string representing an integer
+         */
         fun intToMyString(number: Int): MyString {
             var positiveNumber = kotlin.math.abs(number)
             val size = (kotlin.math.log10(positiveNumber.toDouble()) + 1).toInt()
@@ -126,5 +127,28 @@ class MyString : CharSequence {
             }
             return MyString(value)
         }
+    }
+
+    override val length: Int
+        get() = size
+
+    override fun get(index: Int): Char {
+        return value[index]
+    }
+
+    override fun subSequence(start: Int, end: Int): MyString {
+        val result = CharArray(end - start)
+        for ((index, i) in (start until end).withIndex()) {
+            result[index] = value[i]
+        }
+        return MyString(result)
+    }
+
+    override fun toString(): String {
+        val result = StringBuilder()
+        for (i in 0 until size) {
+            result.append(value[i])
+        }
+        return result.toString()
     }
 }
